@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Graph from '../components/Graph';
 
 
 class WeatherList extends Component {
     renderWeather(cityData) {
+        const tempData = cityData.list.map(datum => datum.main.temp);
+        const pressureData = cityData.list.map(datum => datum.main.pressure);
+        const humidityData = cityData.list.map(datum => datum.main.humidity);
+
         return (
             <tr key={cityData.city.id}>
                 <td>{cityData.city.name}</td>
-                <td></td>
-                <td></td>
-                <td></td>
+                <td>
+                    <Graph data={tempData} color="red" unit="K" />
+                </td>
+                <td>
+                    <Graph data={pressureData} color="blue" unit="hPa" />
+                </td>
+                <td>
+                    <Graph data={humidityData} color="green" unit="%" />
+                </td>
             </tr>
         );
     }
 
     render() {
-        const weatherItems = this.props.weather.map((weather) => {
-            console.log('weather item:', weather);
-            return (
-                <tr>
-                    <td>{weather.city.name}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-            );
-        });
         return (
             <table className="table table-hover">
                 <thead>
                     <tr>
                         <th>City</th>
-                        <th>Temperature</th>
-                        <th>Pressure</th>
-                        <th>Humidity</th>
+                        <th>Temperature (K)</th>
+                        <th>Pressure (hPa)</th>
+                        <th>Humidity (%)</th>
                     </tr>
                 </thead>
                 <tbody>
