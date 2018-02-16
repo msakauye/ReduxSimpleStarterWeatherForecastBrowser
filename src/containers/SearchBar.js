@@ -9,11 +9,12 @@ class SearchBar extends Component {
         };
 
         this.onInputChange = this.onInputChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
     render() {
         return (
-            <form className="input-group">
+            <form className="input-group" onSubmit={this.onSubmit}>
                 <input 
                     value={this.state.term}
                     onChange={this.onInputChange}
@@ -30,7 +31,11 @@ class SearchBar extends Component {
         this.setState({
             term: event.target.value
         });
-        console.log('term:', this.state.term);
+    }
+
+    onSubmit(event) {
+        event.preventDefault();
+        console.log('event:', event);
     }
 }
 
